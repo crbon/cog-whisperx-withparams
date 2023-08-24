@@ -30,11 +30,9 @@ class Predictor(BasePredictor):
         """Run a single prediction on the model"""
         with torch.inference_mode():
             if initial_prompt:
-                print(f"Prompt: {initial_prompt}+")
                 new_asr_options = self.model.options._asdict()
                 new_asr_options["initial_prompt"] = "Your new initial prompt"
                 new_options = faster_whisper.transcribe.TranscriptionOptions(**new_asr_options)
-                print(f"Options: {new_options}+")
                 self.model.options = new_options
             result = self.model.transcribe(str(audio), batch_size=batch_size)
             # result is dict w/keys ['segments', 'language']
@@ -52,4 +50,3 @@ class Predictor(BasePredictor):
             if debug:
                 print(f"max gpu memory allocated over runtime: {torch.cuda.max_memory_reserved() / (1024 ** 3):.2f} GB")
         return json.dumps(result['segments'])
-
