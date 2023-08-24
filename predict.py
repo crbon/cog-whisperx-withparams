@@ -24,7 +24,6 @@ class Predictor(BasePredictor):
         batch_size: int = Input(description="Parallelization of input audio transcription", default=32),
         align_output: bool = Input(description="Use if you need word-level timing and not just batched transcription", default=False),
         initial_prompt: str = Input(description="Optional text to provide as a prompt for the first window.", default=""),
-        only_text: bool = Input(description="Set if you only want to return text; otherwise, segment metadata will be returned as well.", default=False),
         debug: bool = Input(description="Print out memory usage information.", default=False)
     ) -> str:
         """Run a single prediction on the model"""
@@ -45,8 +44,6 @@ class Predictor(BasePredictor):
                 #   it is also sorted
                 # aligned_result['segments'] - same as result segments, but w/a ['words'] segment which contains timing information above.
                 # return_char_alignments adds in character level alignments. it is: too many.
-            if only_text:
-                return ''.join([val.text for val in result['segments']])
             if debug:
                 print(f"max gpu memory allocated over runtime: {torch.cuda.max_memory_reserved() / (1024 ** 3):.2f} GB")
         return json.dumps(result['segments'])
