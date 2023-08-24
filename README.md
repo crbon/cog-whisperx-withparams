@@ -1,1 +1,1 @@
-Cog implementation of whisperX, a library that adds batch processing on top of whisper (and also faster-whisper), leading to very fast audio transcription. 
+Fork of https://github.com/daanelson/cog-whisperx. Exposed initial_prompt parameter in whisperx.
