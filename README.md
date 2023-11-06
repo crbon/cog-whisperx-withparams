@@ -1,1 +1,3 @@
-Fork of https://github.com/daanelson/cog-whisperx. Exposed initial_prompt parameter in whisperx.
+Fork of https://github.com/wglodell/cog-whisperx-withprompt.
+
+Changes to come
