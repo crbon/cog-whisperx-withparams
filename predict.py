@@ -46,4 +46,8 @@ class Predictor(BasePredictor):
                 # return_char_alignments adds in character level alignments. it is: too many.
             if debug:
                 print(f"max gpu memory allocated over runtime: {torch.cuda.max_memory_reserved() / (1024 ** 3):.2f} GB")
+
+        # Flush GPU memory after each inference
+        torch.cuda.empty_cache()
+        
         return json.dumps(result['segments'])
